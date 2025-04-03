@@ -13,6 +13,7 @@ services:
       dockerfile: nginx.dockerfile
     image: nginx.test
     container_name: nginx.test
+    restart: unless-stopped
     # <<: *common_hosts
     # depends_on:
     #   app.test:
@@ -36,6 +37,7 @@ services:
       dockerfile: php8.3-fpm.dockerfile
     image: image.test
     container_name: image.test
+    restart: unless-stopped
     networks:
       app:
         ipv4_address: 172.16.100.100
@@ -45,6 +47,7 @@ services:
   app.test:
     image: image.test
     container_name: app.test
+    restart: unless-stopped
     # <<: *common_hosts
     depends_on:
       mariadb.test:
@@ -68,6 +71,7 @@ services:
       dockerfile: php-node.dockerfile
     image: php-node.test
     container_name: php-node.test
+    restart: unless-stopped
     # <<: *common_hosts
     # depends_on:
     #   app.test:
@@ -86,6 +90,7 @@ services:
   mariadb.test:
     image: mariadb:latest
     container_name: mariadb.test
+    restart: unless-stopped
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_INITDB_SKIP_TZINFO: "yes"
@@ -103,6 +108,7 @@ services:
   phpmyadmin.test:
     image: phpmyadmin/phpmyadmin
     container_name: phpmyadmin.test
+    restart: unless-stopped
     environment:
       PMA_HOST: mariadb.test
       PMA_PASSWORD: password
